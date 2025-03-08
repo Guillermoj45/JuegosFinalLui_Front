@@ -3,7 +3,8 @@ import { LeafletMapComponent } from "../leaflet-map/leaflet-map.component";
 import {Component, AfterViewInit, ElementRef, ViewChild, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {Ubicacion} from "../modelo/Ubicacion";
-import {JuegosService} from "../Servicios/juegos";  // Importar Leaflet
+import {JuegosService} from "../Servicios/juegos";
+import {ToastController} from "@ionic/angular";  // Importar Leaflet
 
 @Component({
   selector: 'app-juego',
@@ -25,7 +26,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   private ubicacionActual? : Ubicacion;
   protected puntuacion: number = 0;
 
-  constructor(private juegos:JuegosService) {}
+  constructor(private juegos:JuegosService, private toastController: ToastController) {}
 
   ngOnInit() {
     this.juegos.enviarNivel(1).subscribe({
@@ -110,6 +111,10 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   public revelacionCordenada() {
     let boton = document.getElementById("boton")
     if (this.ListaParaClick) {
+      if (!this.marker) {
+        this.presentToast('Por favor, selecciona una ubicación en el mapa');
+        return;
+      }
 
       this.ListaParaClick = false;
       this.markerResult.addTo(this.map);
@@ -120,6 +125,9 @@ export class JuegoComponent implements AfterViewInit, OnInit {
     } else {
 
       this.ListaParaClick = true;
+      if (this.marker)
+        this.marker.remove();
+      this.marker = undefined;
       this.markerResult.remove();
       if (boton)
         boton.innerHTML = "Confirmar";
@@ -161,5 +169,15 @@ export class JuegoComponent implements AfterViewInit, OnInit {
 
     return Math.round(puntuacion); // Redondear el resultado
   }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
 }
 
