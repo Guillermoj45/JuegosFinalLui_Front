@@ -23,6 +23,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   private ListaParaClick: boolean = true;
   private ubicaciones? : Ubicacion[];
   private ubicacionActual? : Ubicacion;
+  protected puntuacion: number = 0;
 
   constructor(private juegos:JuegosService) {}
 
@@ -65,10 +66,12 @@ export class JuegoComponent implements AfterViewInit, OnInit {
         this.ubicacionActual = this.ubicaciones[this.ubicaciones.indexOf(this.ubicacionActual) + 1];
         this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
         console.log(this.ubicacionActual);
+
       } else if (this.ubicaciones) {
         this.ubicacionActual = this.ubicaciones[0];
         this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
         console.log(this.ubicacionActual);
+
       } else {
         console.error("No hay ubicaciones");
         return;
@@ -80,9 +83,9 @@ export class JuegoComponent implements AfterViewInit, OnInit {
 
   public onMapClick = (e: L.LeafletMouseEvent) => {
     if (!this.ListaParaClick) {
+      console.error("No se puede hacer click");
       return;
     }
-    console.log([e.latlng.lat, e.latlng.lng]);
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
@@ -98,6 +101,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
       if (boton)
         boton.innerHTML = "Siguiente";
 
+      this.puntuacion += this.calcularPuntuacion()
     } else {
 
       this.ListaParaClick = true;
@@ -106,6 +110,41 @@ export class JuegoComponent implements AfterViewInit, OnInit {
         boton.innerHTML = "Confirmar";
       this.siguienteUbicacion();
     }
+  }
+
+  private calcularDistancia(): number {
+    if (this.marker && this.markerResult) {
+      const markerLatLng = this.marker.getLatLng();
+      const markerResultLatLng = this.markerResult.getLatLng();
+      return markerLatLng.distanceTo(markerResultLatLng);
+    }
+    return 0;
+  }
+
+  private calcularPuntuacion(): number {
+    const distancia = this.calcularDistancia(); // Obtener la distancia en metros
+
+    if (distancia === 0) {
+      return 100; // Máxima puntuación si están en el mismo punto
+    }
+
+    // Convertir metros a kilómetros
+    const distanciaKm = distancia / 1000;
+
+    // Definir el umbral donde la puntuación empieza a ser negativa
+    const umbralNegativo = 1000; // 1,000 km
+
+    // Normalizar la puntuación con una escala logarítmica
+    let puntuacion = 100 - (Math.log10(1 + distanciaKm) * 25);
+
+    // Si la distancia supera el umbral, la puntuación sigue bajando en negativo
+    if (distanciaKm > umbralNegativo) {
+      puntuacion -= (distanciaKm - umbralNegativo) / 1000; // Resta 1 punto por cada 1000 km extra
+    }
+
+    console.log(`Distancia: ${distanciaKm.toFixed(2)} km → Puntuación: ${puntuacion.toFixed(2)}`); // 👀 Verificar en consola
+
+    return Math.round(puntuacion); // Redondear el resultado
   }
 }
 
