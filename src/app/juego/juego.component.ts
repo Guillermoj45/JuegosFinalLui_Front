@@ -4,7 +4,8 @@ import {Component, AfterViewInit, ElementRef, ViewChild, OnInit} from '@angular/
 import * as L from 'leaflet';
 import {Ubicacion} from "../modelo/Ubicacion";
 import {JuegosService} from "../Servicios/juegos";
-import {ToastController} from "@ionic/angular";  // Importar Leaflet
+import {ToastController} from "@ionic/angular";
+import {Router} from "@angular/router";  // Importar Leaflet
 
 @Component({
   selector: 'app-juego',
@@ -24,10 +25,10 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   private markerResult!: L.Marker;
   private ListaParaClick: boolean = true;
   private ubicaciones? : Ubicacion[];
-  private ubicacionActual? : Ubicacion;
+  protected ubicacionActual? : Ubicacion;
   protected puntuacion: number = 0;
 
-  constructor(private juegos:JuegosService, private toastController: ToastController) {}
+  constructor(private juegos:JuegosService, private toastController: ToastController, private router: Router) {}
 
   ngOnInit() {
     this.juegos.enviarNivel(1).subscribe({
@@ -87,6 +88,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
         next: (data: any) => {
           console.log(data);
           localStorage.setItem("id", data.id);
+          this.router.navigate(['/resumen']);
         },
         error: () => {
           console.log("Error al guardar la partida");

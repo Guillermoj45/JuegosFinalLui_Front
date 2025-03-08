@@ -3,6 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {Observable} from "rxjs";
 import {JuegosService} from "../Servicios/juegos";
 import {NgForOf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-resumen',
@@ -19,7 +20,7 @@ export class ResumenComponent  implements OnInit {
   sitios: string[] = [];
 
 
-  constructor(private juegoService: JuegosService) { }
+  constructor(private juegoService: JuegosService, private router: Router) { }
 
   ngOnInit() {
     this.juegoService.obtenerPartida().subscribe({
@@ -33,4 +34,9 @@ export class ResumenComponent  implements OnInit {
     });
   }
 
+  volver() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('username');
+    this.router.navigate(['/']);
+  }
 }
