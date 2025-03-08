@@ -10,26 +10,7 @@
 </head>
 <body>
 
-<div id="map" style="height: 400px"></div>
-
-<!-- Incluir scripts al final del body -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    var map = L.map('map').setView([51.505, -0.09], 13);
-
-    // Agregar capa de mapa base (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Intentar ubicar al usuario
-    map.locate({setView: true, maxZoom: 16});
-});
-</script>
+<div #mapContainer style="height: 400px;"></div>
 
 </body>
 </html>
