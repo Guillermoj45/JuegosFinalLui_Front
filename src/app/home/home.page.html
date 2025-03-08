@@ -17,19 +17,18 @@
     <p>Descubre a San Ignacio de Loyola con este desafío de geolocalización.</p>
     <div class="input-group">
       <i class="fas fa-user"></i>
-      <input style="background-color: white; color: black" type="text" placeholder="Usuario">
+      <input style="background-color: white; color: black" type="text" placeholder="Usuario" [(ngModel)]="username">
     </div>
     <div class="input-group">
       <i class="fas fa-user"></i>
-      <select style="background-color: white; color: black">
+      <select style="background-color: white; color: black" [(ngModel)]="difficultyLevel">
         <option value="" disabled selected>Seleccione nivel de dificultad</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </select>
     </div>
-
-    <button class="login-button" routerLink="/juego">JUGAR!</button>
+    <button class="login-button" (click)="startGame()">JUGAR!</button>
   </div>
 </div>
 </body>
