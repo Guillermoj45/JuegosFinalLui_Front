@@ -60,15 +60,21 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   }
 
   public siguienteUbicacion() {
-    if (this.ubicacionActual && this.ubicaciones) {
-      this.ubicacionActual = this.ubicaciones[this.ubicaciones.indexOf(this.ubicacionActual) + 1];
-    } else if (this.ubicaciones) {
-      this.ubicacionActual = this.ubicaciones[0];
-      this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
-      console.log(this.ubicacionActual);
-    } else {
+    try {
+      if (this.ubicacionActual && this.ubicaciones) {
+        this.ubicacionActual = this.ubicaciones[this.ubicaciones.indexOf(this.ubicacionActual) + 1];
+        this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
+        console.log(this.ubicacionActual);
+      } else if (this.ubicaciones) {
+        this.ubicacionActual = this.ubicaciones[0];
+        this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
+        console.log(this.ubicacionActual);
+      } else {
+        console.error("No hay ubicaciones");
+        return;
+      }
+    }catch (e) {
       console.error("No hay ubicaciones");
-      return;
     }
   }
 
@@ -84,12 +90,21 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   }
 
   public revelacionCordenada() {
+    let boton = document.getElementById("boton")
     if (this.ListaParaClick) {
+
       this.ListaParaClick = false;
       this.markerResult.addTo(this.map);
+      if (boton)
+        boton.innerHTML = "Siguiente";
+
     } else {
+
       this.ListaParaClick = true;
       this.markerResult.remove();
+      if (boton)
+        boton.innerHTML = "Confirmar";
+      this.siguienteUbicacion();
     }
   }
 }
