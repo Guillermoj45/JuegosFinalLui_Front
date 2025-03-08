@@ -76,8 +76,23 @@ export class JuegoComponent implements AfterViewInit, OnInit {
         console.error("No hay ubicaciones");
         return;
       }
-    }catch (e) {
-      console.error("No hay ubicaciones");
+
+    } catch (e) {
+      if (!this.ubicaciones){
+        return;
+      }
+      this.juegos.guardarPartida(this.puntuacion, this.ubicaciones).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          localStorage.setItem("id", data.id);
+        },
+        error: () => {
+          console.log("Error al guardar la partida");
+        },
+        complete: () => {
+          console.log("Completado");
+        }
+      });
     }
   }
 

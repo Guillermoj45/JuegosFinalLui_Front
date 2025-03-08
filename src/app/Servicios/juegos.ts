@@ -13,8 +13,17 @@ export class JuegosService {
     return this.http.get<Ubicacion[]>('api/ubicaciones/' + nivel);
   }
 
-  guardarPartida(){
-
+  guardarPartida(puntuacion: number, Ubicaciones: Ubicacion[]) {
+    let arrayIdUbicaciones = [];
+    for (let i = 0; i < Ubicaciones.length; i++) {
+      arrayIdUbicaciones.push(Ubicaciones[i].id);
+    }
+    let mensaje = {
+      "nombre": localStorage.getItem('username'),
+      "idUbicaciones": arrayIdUbicaciones,
+      "puntaje": puntuacion,
+    }
+    return this.http.post('api/participante', mensaje)
   }
 
 }
