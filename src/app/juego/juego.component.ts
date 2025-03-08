@@ -16,8 +16,14 @@ import * as L from 'leaflet';  // Importar Leaflet
 export class JuegoComponent implements AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   private map!: L.Map;
+  private marker!: L.Marker;
 
   ngAfterViewInit(): void {
+    this.arranque();
+    this.map.on('click', this.onMapClick);
+  }
+
+  arranque() {
     this.map = L.map(this.mapContainer.nativeElement).setView([51.505, -0.09], 13);
 
     // Agregar capa base de OpenStreetMap
@@ -27,6 +33,14 @@ export class JuegoComponent implements AfterViewInit {
 
     // Intentar ubicar al usuario
     this.map.locate({ setView: true, maxZoom: 16 });
+  }
+
+  public onMapClick = (e: L.LeafletMouseEvent) => {
+    console.log([e.latlng.lat, e.latlng.lng]);
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+    this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
   }
 }
 
