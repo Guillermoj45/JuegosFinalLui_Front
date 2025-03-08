@@ -12,12 +12,12 @@
     <div class="login-header">
       <i class="fas fa-compass"></i> Resumen
     </div>
-    <h2>Tu puntuación: 250 pts</h2>
+    <h2>Tu puntuación: {{puntaje}}</h2>
     <h4>Lugares jugados:</h4>
-    <p>Paris</p>
-    <p>Barcelona</p>
-    <p>Madrid</p>
-    <button class="login-button">Volver a la pantalla inicial</button>
+    <div *ngFor="let lugar of sitios">
+      <div>{{lugar}}</div>
+    </div>
+    <button style="margin-top: 30px" class="login-button">Volver a la pantalla inicial</button>
   </div>
 </div>
 </body>
