@@ -1,4 +1,4 @@
-import { NgOptimizedImage } from "@angular/common";
+import {NgForOf, NgOptimizedImage} from "@angular/common";
 import { LeafletMapComponent } from "../leaflet-map/leaflet-map.component";
 import {Component, AfterViewInit, ElementRef, ViewChild, OnInit} from '@angular/core';
 import * as L from 'leaflet';
@@ -12,7 +12,8 @@ import {JuegosService} from "../Servicios/juegos";  // Importar Leaflet
   standalone: true,
   imports: [
     NgOptimizedImage,
-    LeafletMapComponent
+    LeafletMapComponent,
+    NgForOf
   ]
 })
 export class JuegoComponent implements AfterViewInit, OnInit {
@@ -22,7 +23,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   private markerResult!: L.Marker;
   private ListaParaClick: boolean = true;
   private ubicaciones? : Ubicacion[];
-  private ubicacionActual? : Ubicacion;
+  protected ubicacionActual? : Ubicacion;
 
   constructor(private juegos:JuegosService) {}
 
