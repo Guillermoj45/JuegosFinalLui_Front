@@ -1,0 +1,7 @@
+{
+  "name": "Front_Ignaciano",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
