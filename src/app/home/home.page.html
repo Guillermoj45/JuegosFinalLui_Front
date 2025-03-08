@@ -1,20 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - GeoIgnacio</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <i class="fas fa-compass"></i> GeoIgnaciano
+    </div>
+    <h2>Bienvenido, Explorador!</h2>
+    <p>Descubre a San Ignacio de Loyola con este desafío de geolocalización.</p>
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input style="background-color: white; color: black" type="text" placeholder="Usuario">
+    </div>
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <select style="background-color: white; color: black">
+        <option value="" disabled selected>Seleccione nivel de dificultad</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <button class="login-button" routerLink="/juego">JUGAR!</button>
   </div>
-</ion-content>
+</div>
+</body>
+</html>
