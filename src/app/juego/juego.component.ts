@@ -28,9 +28,10 @@ export class JuegoComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.juegos.enviarNivel(1).subscribe({
-      next: (data: Ubicacion) => {
-        this.ubicacionActual = data;
-        console.log(this.ubicacionActual);
+      next: (data: Ubicacion[]) => {
+        this.ubicaciones = data;
+        console.log(this.ubicaciones);
+        this.siguienteUbicacion();
       },
       error: () => {
         console.log("Error al recibir la ubicación");
@@ -58,6 +59,19 @@ export class JuegoComponent implements AfterViewInit, OnInit {
     this.map.locate({ setView: true, maxZoom: 0 });
   }
 
+  public siguienteUbicacion() {
+    if (this.ubicacionActual && this.ubicaciones) {
+      this.ubicacionActual = this.ubicaciones[this.ubicaciones.indexOf(this.ubicacionActual) + 1];
+    } else if (this.ubicaciones) {
+      this.ubicacionActual = this.ubicaciones[0];
+      this.markerResult = L.marker([this.ubicacionActual.latitud, this.ubicacionActual.longitud]);
+      console.log(this.ubicacionActual);
+    } else {
+      console.error("No hay ubicaciones");
+      return;
+    }
+  }
+
   public onMapClick = (e: L.LeafletMouseEvent) => {
     if (!this.ListaParaClick) {
       return;
@@ -70,8 +84,13 @@ export class JuegoComponent implements AfterViewInit, OnInit {
   }
 
   public revelacionCordenada() {
-    this.ListaParaClick = false;
-    this.markerResult = L.marker([51.5, -0.09]).addTo(this.map);
+    if (this.ListaParaClick) {
+      this.ListaParaClick = false;
+      this.markerResult.addTo(this.map);
+    } else {
+      this.ListaParaClick = true;
+      this.markerResult.remove();
+    }
   }
 }
 
