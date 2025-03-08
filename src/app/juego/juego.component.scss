@@ -26,17 +26,37 @@ body {
   font-weight: bold;
 }
 
-/* Contenedor principal del juego */
 .game-container {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente si es necesario */
+  flex-wrap: wrap; /* Asegura que los elementos se ajusten correctamente */
+  margin: auto;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
-  text-align: center;
-  position: relative;
   margin-top: 40px;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.envoltorio {
+  display: flex;
+  justify-content: center; /* Centra los elementos internos */
+  align-items: center;
+  margin: 10px; /* Espaciado entre imágenes */
+}
+
+.img {
+  height: 170px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.envoltorio:last-child {
+  margin-right: 0; /* Remove margin from the last wrapper */
 }
 
 /* Contenedor de las fotos */
@@ -92,3 +112,4 @@ button:active {
   box-shadow: none;
   transform: translate(3px, 3px);
 }
+

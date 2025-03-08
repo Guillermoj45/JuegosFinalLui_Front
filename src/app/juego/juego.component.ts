@@ -1,4 +1,4 @@
-import { NgOptimizedImage } from "@angular/common";
+import {NgForOf, NgOptimizedImage} from "@angular/common";
 import { LeafletMapComponent } from "../leaflet-map/leaflet-map.component";
 import {Component, AfterViewInit, ElementRef, ViewChild, OnInit} from '@angular/core';
 import * as L from 'leaflet';
@@ -13,7 +13,8 @@ import {ToastController} from "@ionic/angular";  // Importar Leaflet
   standalone: true,
   imports: [
     NgOptimizedImage,
-    LeafletMapComponent
+    LeafletMapComponent,
+    NgForOf
   ]
 })
 export class JuegoComponent implements AfterViewInit, OnInit {

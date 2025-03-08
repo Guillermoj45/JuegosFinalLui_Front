@@ -16,16 +16,14 @@
 <div class="card">
   <div class="card-header">
     <div class="game-container">
-      <div class="photo-container">
-        <img src="assets/Jerusalen/Jerusalen/jerusalen_1.png" alt="Lugar 3">
-        <img src="assets/Jerusalen/Jerusalen/jerusalen_2.png" alt="Lugar 3">
-        <img src="assets/Jerusalen/Jerusalen/jerusalen_3.png" alt="Lugar 3">
-      </div>
+        <div class="envoltorio" *ngFor="let photo of ubicacionActual?.imagenes">
+          <img class="img" [src]="photo" alt="Photo">
+        </div>
     </div>
   </div>
   <div class="card-body">
     <div class="mapa">
-      <div #mapContainer style="height: 340px;"></div>
+      <div #mapContainer style="height: 300px;"></div>
     </div>
   </div>
 </div>
