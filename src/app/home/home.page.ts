@@ -1,21 +1,34 @@
 import { Component } from '@angular/core';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonInput,
-  IonButton,
-  IonRouterLink
-} from '@ionic/angular/standalone';
-import {RouterModule} from "@angular/router";
+import { Router } from '@angular/router';
+import {FormsModule} from "@angular/forms";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, RouterModule],
+  imports: [
+    FormsModule
+  ]
 })
 export class HomePage {
-  constructor() {}
+  username: string = '';
+  difficultyLevel: number | null = null;
+
+  constructor(private router: Router, private alertController: AlertController) {}
+
+  startGame() {
+    console.log("Hola");
+    if (this.username.trim() !== '' && this.difficultyLevel !== null) {
+      localStorage.setItem('username', this.username);
+      localStorage.setItem('difficultyLevel', this.difficultyLevel.toString());
+      this.router.navigate(['/juego']);
+    } else {
+      this.alertController.create({
+        header: 'Error',
+        message: 'Por favor, rellena todos los campos',
+        buttons: ['OK']
+      }).then(alert => alert.present());
+    }
+  }
 }
