@@ -10,7 +10,7 @@ export class JuegosService {
   constructor(private http: HttpClient) { }
 
   enviarNivel(nivel: number) {
-    return this.http.get<Ubicacion>('api/ubicaciones/' + nivel);
+    return this.http.get<Ubicacion[]>('api/ubicaciones/' + nivel);
   }
 
   guardarPartida(){
