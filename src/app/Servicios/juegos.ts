@@ -11,7 +11,7 @@ export class JuegosService {
   constructor(private http: HttpClient) { }
 
   enviarNivel(nivel: number) {
-    return this.http.get<Ubicacion[]>('api/ubicaciones/' + nivel);
+    return this.http.get<Ubicacion[]>('https://85.137.3.4/api/ubicaciones/' + nivel);
   }
 
   guardarPartida(puntuacion: number, Ubicaciones: Ubicacion[]) {
@@ -24,12 +24,12 @@ export class JuegosService {
       "idUbicaciones": arrayIdUbicaciones,
       "puntaje": puntuacion,
     }
-    return this.http.post('api/participante', mensaje)
+    return this.http.post('https://85.137.3.4/api/participante', mensaje)
   }
 
   obtenerPartida(): Observable<any> {
     const id = localStorage.getItem('id');
-    return this.http.get(`api/resumen/${id}`);
+    return this.http.get(`https://85.137.3.4/api/resumen/${id}`);
   }
 
 }
