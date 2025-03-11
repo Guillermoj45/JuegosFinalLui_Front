@@ -165,7 +165,7 @@ export class JuegoComponent implements AfterViewInit, OnInit {
 
     // Si la distancia supera el umbral, la puntuación sigue bajando en negativo
     if (distanciaKm > umbralNegativo) {
-      puntuacion -= (distanciaKm - umbralNegativo) / 1000; // Resta 1 punto por cada 1000 km extra
+      puntuacion -= (distanciaKm - umbralNegativo) / 100; // Resta 1 punto por cada 1000 km extra
     }
 
     console.log(`Distancia: ${distanciaKm.toFixed(2)} km → Puntuación: ${puntuacion.toFixed(2)}`); // 👀 Verificar en consola

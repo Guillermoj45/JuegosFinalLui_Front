@@ -7,6 +7,7 @@ import {AlertController} from "@ionic/angular";
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: true,
   imports: [
     FormsModule
   ]
@@ -21,7 +22,7 @@ export class HomePage {
     console.log("Hola");
     if (this.username.trim() !== '' && this.difficultyLevel !== null) {
       localStorage.setItem('username', this.username);
-      localStorage.setItem('difficultyLevel', this.difficultyLevel.toString());
+      localStorage.setItem('difficultyLevel', "1");
       this.router.navigate(['/juego']);
     } else {
       this.alertController.create({
