@@ -20,7 +20,7 @@ export class HomePage {
 
   startGame() {
     console.log("Hola");
-    if (this.username.trim() !== '' && this.difficultyLevel !== null) {
+    if (this.username.trim() !== '') {
       localStorage.setItem('username', this.username);
       localStorage.setItem('difficultyLevel', "1");
       this.router.navigate(['/juego']);
